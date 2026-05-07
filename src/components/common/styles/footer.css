@@ -1,63 +1,62 @@
 @import "../../../data/styles.css";
 
 .footer {
-	display: flex;
-	padding-top: 25px;
-	margin-top: 50px;
-	padding-bottom: 25px;
-	align-items: center;
+	display: grid;
+	grid-template-columns: 1.2fr 1fr auto;
+	gap: 24px;
+	padding: 32px 0 12px;
+	align-items: start;
 }
 
-.footer-links,
-.footer-credits {
-	flex-basis: 50%;
+.footer-brand-title {
+	font-family: var(--secondary-font);
+	font-size: 1.05rem;
+	font-weight: 700;
+	color: var(--primary-color);
 }
 
-.footer-links {
-	margin-left: -40px;
+.footer-brand-copy,
+.footer-credits-text {
+	color: var(--secondary-color);
+	font-size: 0.95rem;
+	line-height: 1.7;
 }
 
 .footer-nav-link-list {
 	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
 	list-style: none;
-	justify-content: space-between;
-	align-items: center;
+	margin: 0;
+	padding: 0;
 }
 
-.footer-nav-link-item {
-	font-weight: bold;
-	font-size: 80%;
-}
-
-.footer-nav-link-list a {
+.footer-nav-link-item a {
+	display: inline-flex;
+	padding: 8px 12px;
+	border-radius: 999px;
 	text-decoration: none;
 	color: var(--secondary-color);
+	background: rgba(255, 255, 255, 0.62);
+	border: 1px solid var(--border-color);
+	transition: 0.25s ease;
 }
 
-.footer-nav-link-list a:hover {
-	color: var(--link-color);
+.footer-nav-link-item a:hover {
+	color: var(--primary-color);
+	border-color: rgba(15, 118, 110, 0.28);
 }
 
-.footer-credits-text {
-	justify-content: flex-end;
-	color: var(--tertiary-color);
-	font-size: 14px;
+.footer-credits {
 	text-align: right;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
 	.footer {
-		flex-direction: column;
-		height: 85px;
+		grid-template-columns: 1fr;
 	}
 
-	.footer-links {
-		display: flex;
-		width: 100%;
-		justify-content: center;
-	}
-
-	.footer-nav-link-list {
-		width: 100%;
+	.footer-credits {
+		text-align: left;
 	}
 }

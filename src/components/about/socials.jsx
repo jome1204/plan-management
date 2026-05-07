@@ -2,74 +2,52 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import {
-	faTwitter,
 	faGithub,
 	faLinkedin,
-	faInstagram,
+	faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 
 import INFO from "../../data/user";
 
 import "./styles/socials.css";
 
+const socialItems = [
+	{
+		href: INFO.socials.github,
+		icon: faGithub,
+		label: "GitHub",
+		text: "Code, experiments, and repositories",
+	},
+	{
+		href: INFO.socials.linkedin,
+		icon: faLinkedin,
+		label: "LinkedIn",
+		text: "Professional profile and network",
+	},
+	{
+		href: INFO.socials.twitter,
+		icon: faTwitter,
+		label: "Twitter",
+		text: "Short thoughts and updates",
+	},
+].filter((item) => item.href);
+
 const Socials = () => {
 	return (
 		<div className="socials">
-			<div className="social">
-				<a href={INFO.socials.twitter} target="_blank" rel="noreferrer">
-					<div className="social-icon">
-						<FontAwesomeIcon
-							icon={faTwitter}
-							className="social-icon"
-						/>
-					</div>
-					<div className="social-text">Follow on Twitter</div>
-				</a>
-			</div>
-
-			<div className="social">
-				<a href={INFO.socials.github} target="_blank" rel="noreferrer">
-					<div className="social-icon">
-						<FontAwesomeIcon
-							icon={faGithub}
-							className="social-icon"
-						/>
-					</div>
-					<div className="social-text">Follow on GitHub</div>
-				</a>
-			</div>
-
-			<div className="social">
-				<a
-					href={INFO.socials.linkedin}
-					target="_blank"
-					rel="noreferrer"
-				>
-					<div className="social-icon">
-						<FontAwesomeIcon
-							icon={faLinkedin}
-							className="social-icon"
-						/>
-					</div>
-					<div className="social-text">Follow on LinkedIn</div>
-				</a>
-			</div>
-
-			<div className="social">
-				<a
-					href={INFO.socials.instagram}
-					target="_blank"
-					rel="noreferrer"
-				>
-					<div className="social-icon">
-						<FontAwesomeIcon
-							icon={faInstagram}
-							className="social-icon"
-						/>
-					</div>
-					<div className="social-text">Follow on Instagram</div>
-				</a>
-			</div>
+			{socialItems.map((item) => (
+				<div className="social" key={item.label}>
+					<a href={item.href} target="_blank" rel="noreferrer">
+						<div className="social-icon">
+							<FontAwesomeIcon icon={item.icon} className="social-icon" />
+						</div>
+						<div className="social-copy">
+							<div className="social-label">{item.label}</div>
+							<div className="social-text">{item.text}</div>
+						</div>
+					</a>
+				</div>
+			))}
 
 			<div className="email">
 				<div className="email-wrapper">
@@ -82,7 +60,10 @@ const Socials = () => {
 							<FontAwesomeIcon icon={faEnvelope} />
 						</div>
 
-						<div className="social-text">{INFO.main.email}</div>
+						<div className="social-copy">
+							<div className="social-label">Email</div>
+							<div className="social-text">{INFO.main.email}</div>
+						</div>
 					</a>
 				</div>
 			</div>

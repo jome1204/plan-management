@@ -40,6 +40,7 @@ const Articles = () => {
 					</div>
 
 					<div className="articles-main-container">
+						<div className="section-kicker">Writing</div>
 						<div className="title articles-title">
 							{INFO.articles.title}
 						</div>
@@ -60,7 +61,7 @@ const Articles = () => {
 											date={article().date}
 											title={article().title}
 											description={article().description}
-											link={"/article/" + (index + 1)}
+											link={`/article/${index + 1}`}
 										/>
 									</div>
 								))}

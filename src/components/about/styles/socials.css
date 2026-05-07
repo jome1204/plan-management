@@ -1,36 +1,66 @@
 @import "../../../data/styles.css";
+
+.socials {
+	display: grid;
+	gap: 14px;
+}
+
 .social,
 .email-wrapper {
 	display: flex;
-	padding-bottom: 20px;
 }
 
 .social a,
 .email-wrapper a {
+	display: flex;
+	align-items: flex-start;
+	gap: 16px;
+	width: 100%;
+	padding: 16px 18px;
 	text-decoration: none;
+	border-radius: 22px;
+	background: rgba(255, 255, 255, 0.7);
+	border: 1px solid var(--border-color);
+	box-shadow: var(--shadow-color);
+	transition: 0.25s ease;
+}
+
+.social a:hover,
+.email-wrapper a:hover {
+	transform: translateY(-2px);
+	border-color: rgba(15, 118, 110, 0.28);
 }
 
 .social-icon {
-	font-size: 15px;
-	color: var(--secondary-color);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 42px;
+	height: 42px;
+	border-radius: 14px;
+	background: linear-gradient(135deg, #0f766e, #0f172a);
+	color: #ffffff;
+	font-size: 0.95rem;
+}
+
+.social-copy {
+	display: grid;
+	gap: 4px;
+}
+
+.social-label {
+	color: var(--primary-color);
+	font-weight: 800;
 }
 
 .social-text {
 	color: var(--secondary-color);
-	padding-left: 30px;
-	margin-top: -20px;
-	font-weight: 600;
-	font-size: 14px;
+	font-size: 0.92rem;
+	line-height: 1.6;
 }
 
 .email::before {
 	content: "";
 	display: block;
-	padding-top: 20px;
-	border-top: 3px solid #f4f4f5;
-	margin-top: 20px;
-}
-
-.email-wrapper {
-	padding-top: 20px;
+	padding-top: 8px;
 }

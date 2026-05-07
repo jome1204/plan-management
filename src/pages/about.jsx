@@ -39,23 +39,28 @@ const About = () => {
 					</div>
 
 					<div className="about-container">
-						<div className="about-main">
-							<div className="about-right-side">
+						<section className="about-hero">
+							<div className="about-copy">
+								<div className="section-kicker">About me</div>
 								<div className="title about-title">
 									{INFO.about.title}
 								</div>
 
-								<div className="subtitle about-subtitle">
-									{INFO.about.description}
+								<div className="about-description">
+									{INFO.about.description.map((item) => (
+										<p className="subtitle about-subtitle" key={item}>
+											{item}
+										</p>
+									))}
 								</div>
 							</div>
 
-							<div className="about-left-side">
+							<div className="about-side">
 								<div className="about-image-container">
 									<div className="about-image-wrapper">
 										<img
 											src="about.jpg"
-											alt="about"
+											alt={INFO.main.name}
 											className="about-image"
 										/>
 									</div>
@@ -65,7 +70,37 @@ const About = () => {
 									<Socials />
 								</div>
 							</div>
-						</div>
+						</section>
+
+						<section className="about-grid">
+							<div className="about-card">
+								<div className="section-kicker">Core strengths</div>
+								<div className="about-list">
+									{INFO.about.skills.map((item) => (
+										<div className="about-list-item" key={item}>
+											{item}
+										</div>
+									))}
+								</div>
+							</div>
+
+							<div className="about-card">
+								<div className="section-kicker">How I work</div>
+								<div className="about-timeline">
+									{INFO.about.timeline.map((item) => (
+										<div className="about-timeline-item" key={item.title}>
+											<div className="about-timeline-title">
+												{item.title}
+											</div>
+											<div className="about-timeline-description">
+												{item.description}
+											</div>
+										</div>
+									))}
+								</div>
+							</div>
+						</section>
+
 						<div className="about-socials-mobile">
 							<Socials />
 						</div>
