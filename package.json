@@ -9,6 +9,7 @@
 	},
 	"license": "MIT",
 	"private": true,
+	"homepage": "https://jome1204.github.io/plan-management",
 	"proxy": "http://localhost:5000",
 	"dependencies": {
 		"@fortawesome/fontawesome-svg-core": "^6.4.0",

@@ -1,5 +1,6 @@
 const TOKEN_KEY = "plan-master-token";
 const SESSION_KEY = "plan-master-session";
+const API_BASE_URL = process.env.REACT_APP_API_URL || "";
 
 function readJson(key) {
 	const raw = window.localStorage.getItem(key);
@@ -18,6 +19,7 @@ function clearSession() {
 
 async function request(path, options = {}) {
 	const token = window.localStorage.getItem(TOKEN_KEY);
+	const url = `${API_BASE_URL}${path}`;
 	const headers = {
 		"Content-Type": "application/json",
 		...(options.headers || {}),
@@ -27,7 +29,7 @@ async function request(path, options = {}) {
 		headers.Authorization = `Bearer ${token}`;
 	}
 
-	const response = await fetch(path, {
+	const response = await fetch(url, {
 		...options,
 		headers,
 	});
