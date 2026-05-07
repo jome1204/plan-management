@@ -1,6 +1,9 @@
+import * as mockApi from "./mockApi";
+
 const TOKEN_KEY = "plan-master-token";
 const SESSION_KEY = "plan-master-session";
 const API_BASE_URL = process.env.REACT_APP_API_URL || "";
+const USE_MOCK_API = !API_BASE_URL;
 
 function readJson(key) {
 	const raw = window.localStorage.getItem(key);
@@ -86,16 +89,30 @@ export function getStoredSession() {
 }
 
 export function hasStoredToken() {
-	return Boolean(window.localStorage.getItem(TOKEN_KEY));
+	return USE_MOCK_API
+		? Boolean(mockApi.getCurrentUser())
+		: Boolean(window.localStorage.getItem(TOKEN_KEY));
 }
 
 export async function syncCurrentUser() {
+	if (USE_MOCK_API) {
+		const user = mockApi.getCurrentUser();
+		if (!user) {
+			throw new Error("No active session.");
+		}
+		return user;
+	}
+
 	const result = await request("/api/auth/me");
 	window.localStorage.setItem(SESSION_KEY, JSON.stringify(result.user));
 	return result.user;
 }
 
 export async function loginUser(form) {
+	if (USE_MOCK_API) {
+		return mockApi.loginUser(form);
+	}
+
 	const result = await request("/api/auth/login", {
 		method: "POST",
 		body: JSON.stringify(form),
@@ -105,6 +122,10 @@ export async function loginUser(form) {
 }
 
 export async function registerUser(form) {
+	if (USE_MOCK_API) {
+		return mockApi.registerUser(form);
+	}
+
 	const result = await request("/api/auth/register", {
 		method: "POST",
 		body: JSON.stringify(form),
@@ -114,16 +135,31 @@ export async function registerUser(form) {
 }
 
 export function logoutUser() {
+	if (USE_MOCK_API) {
+		mockApi.logoutUser();
+		return;
+	}
+
 	clearSession();
 }
 
 export async function getDashboardSnapshot() {
 	const user = getStoredSession();
+	if (USE_MOCK_API) {
+		return mockApi.getDashboardSnapshot(user.userId);
+	}
+
 	const result = await request("/api/plans");
 	return buildDashboardSnapshot(user, result.plans);
 }
 
 export async function createPlan(payload) {
+	if (USE_MOCK_API) {
+		const user = getStoredSession();
+		mockApi.createPlan(user.userId, payload);
+		return;
+	}
+
 	await request("/api/plans", {
 		method: "POST",
 		body: JSON.stringify(payload),
@@ -131,6 +167,12 @@ export async function createPlan(payload) {
 }
 
 export async function savePlan(planId, payload) {
+	if (USE_MOCK_API) {
+		const user = getStoredSession();
+		mockApi.savePlan(user.userId, planId, payload);
+		return;
+	}
+
 	await request(`/api/plans/${planId}`, {
 		method: "PATCH",
 		body: JSON.stringify(payload),
@@ -138,12 +180,22 @@ export async function savePlan(planId, payload) {
 }
 
 export async function deletePlan(planId) {
+	if (USE_MOCK_API) {
+		const user = getStoredSession();
+		mockApi.deletePlan(user.userId, planId);
+		return;
+	}
+
 	await request(`/api/plans/${planId}`, {
 		method: "DELETE",
 	});
 }
 
 export async function getAdminOverview() {
+	if (USE_MOCK_API) {
+		return mockApi.getAdminOverview();
+	}
+
 	const result = await request("/api/admin/overview");
 	return result;
 }
